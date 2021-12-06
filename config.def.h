@@ -15,12 +15,12 @@ static const int focusonwheel       = 0;
 static char font[]            = "monospace:size=10";
 static char dmenufont[]       = "monospace:size=10";
 static const char *fonts[]          = { font };
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#005577";
-static char selbgcolor[]            = "#005577";
+static char normbgcolor[]           = "#282c34";
+static char normbordercolor[]       = "#61afef";
+static char normfgcolor[]           = "#abb2bf";
+static char selfgcolor[]            = "#c678dd";
+static char selbordercolor[]        = "#61afef";
+static char selbgcolor[]            = "#282c34";
 static const unsigned int baralpha = 0xe0;
 static const unsigned int borderalpha = OPAQUE;
 static char *colors[][3] = {
