@@ -1,0 +1,79 @@
+--- dwm.c
++++ dwm.c
+@@ -92,7 +92,7 @@ struct Client {
+ 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
+ 	int bw, oldbw;
+ 	unsigned int tags;
+-	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
++	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, cantfocus;
+ 	Client *next;
+ 	Client *snext;
+ 	Monitor *mon;
+@@ -212,6 +213,7 @@ static void tagmon(const Arg *arg);
+ static void tile(Monitor *);
+ static void togglebar(const Arg *arg);
+ static void togglefloating(const Arg *arg);
++static void togglecanfocusfloating(const Arg *arg);
+ static void toggletag(const Arg *arg);
+ static void toggleview(const Arg *arg);
+ static void unfocus(Client *c, int setfocus);
+@@ -1719,6 +1723,59 @@ togglefloating(const Arg *arg)
+ 	if (selmon->sel->isfloating)
+ 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
+ 			selmon->sel->w, selmon->sel->h, 0);
++
++  resetcanfocusfloating();
++
++	arrange(selmon);
++}
++
++void
++resetcanfocusfloating()
++{
++	unsigned int i, n;
++	Client *c;
++
++	for (n = 0, c = selmon->clients; c; c = c->next, n++);
++	if (n == 0)
++		return;
++
++	for (i = 0, c = selmon->clients; c; c = c->next, i++)
++    if (c->isfloating)
++      c->cantfocus = 0;
++
++	arrange(selmon);
++}
++
++void
++togglecanfocusfloating(const Arg *arg)
++{
++	unsigned int n;
++	Client *c, *cf = NULL;
++
++  if (!selmon->sel)
++      return;
++
++  for (c = selmon->clients; c; c = c->next)
++      if (c->cantfocus == 1) {
++          cf = c;
++      }
++
++  if (cf) {
++      resetcanfocusfloating();
++      focus(cf);
++  } else {
++    for (n = 0, c = selmon->clients; c; c = c->next)
++        if (c->isfloating)
++            c->cantfocus = !c->cantfocus;
++        else
++            n++;
++
++    if (n && selmon->sel->isfloating) {
++        c = nexttiled(selmon->clients);
++        focus(c);
++    }
++  }
++
+ 	arrange(selmon);
+ }
+ 
