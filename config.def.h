@@ -16,7 +16,7 @@ static char font[]            = "monospace:size=10";
 static char dmenufont[]       = "monospace:size=10";
 static const char *fonts[]          = { font };
 static char normbgcolor[]           = "#282c34";
-static char normbordercolor[]       = "#e06c75";
+static char normbordercolor[]       = "#282c34";
 static char normfgcolor[]           = "#abb2bf";
 static char selfgcolor[]            = "#c678dd";
 static char selbordercolor[]        = "#61afef";
@@ -95,7 +95,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static char *dmenucmd[] = { "dmenu_run", "-p", "(W-p) Launch program:", "-b", "-h", "30", "-l", "10", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static char *dmenucmd[] = { "dmenu_run", "-p", "(W-p) Launch program:", "-b", "-h", "30", "-l", "10", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 /*
